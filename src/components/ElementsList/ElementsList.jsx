@@ -1,5 +1,5 @@
 import ElementItem from '../ElementItem/ElementItem';
-import { selectFilteredContacts } from '../../redux/selectors';
+import { selectFilteredContacts } from '../../redux/contacts/selectors';
 import { useSelector } from 'react-redux';
 
 const ElementsList = () => {

@@ -1,13 +1,10 @@
-import { addContact } from '../../redux/operations';
+import { addContact } from '../../redux/contacts/operations';
 import { useSelector, useDispatch } from 'react-redux';
-import { selectContacts } from '../../redux/selectors';
+import { selectContacts } from '../../redux/contacts/selectors';
 
-export const ContactForm = () => {
+const ContactForm = () => {
   const dispatch = useDispatch();
   const contacts = useSelector(selectContacts);
-
-  // próbowałem logie newContact przenieś do pliku selektors ale miałem problem
-  // z eventem który przekazuje i wszystko zaczeło mi sie sypać
 
   const newContact = event => {
     event.preventDefault();
@@ -53,3 +50,5 @@ export const ContactForm = () => {
     </>
   );
 };
+
+export default ContactForm;

@@ -1,5 +1,5 @@
 import { useDispatch } from 'react-redux';
-import { setFilterStatus } from '../../redux/filtersSlice';
+import { setFilterStatus } from '../../redux/contacts/filtersSlice';
 
 const Filter = () => {
   const dispatch = useDispatch();
