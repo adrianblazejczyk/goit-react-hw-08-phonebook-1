@@ -1,8 +1,7 @@
-import { useDispatch, useSelector } from 'react-redux';
-import { selectIsLoggedIn } from '../../redux/auth/selectors';
-import { Navigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 import { login } from '../../redux/auth/operations';
 import css from './Login.module.css';
+import { Helmet } from 'react-helmet-async';
 
 const Login = () => {
   const dispatch = useDispatch();
@@ -14,14 +13,11 @@ const Login = () => {
     return dispatch(login({ email, password }));
   };
 
-  const isLoggedIn = useSelector(selectIsLoggedIn);
-
-  if (isLoggedIn) {
-    return <Navigate to="/" />;
-  }
-
   return (
     <main>
+      <Helmet>
+        <title>Login</title>
+      </Helmet>
       <form className={css.login} onSubmit={handleLogin}>
         <label className={css.label}>Email:</label>
         <input type="email" name="email" />

@@ -1,9 +1,8 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { selectError, selectIsLoading } from '../../redux/contacts/selectors';
-import { selectIsLoggedIn } from '../../redux/auth/selectors';
-import { Navigate } from 'react-router-dom';
 import { useEffect } from 'react';
 import { fetchContacts } from '../../redux/contacts/operations';
+import { Helmet } from 'react-helmet-async';
 import ContactForm from '../../components/ContactForm/ContactForm';
 import Filter from '../../components/Filter/Filter';
 import ElementsList from '../../components/ElementsList/ElementsList';
@@ -17,14 +16,11 @@ const Contacts = () => {
     dispatch(fetchContacts());
   }, [dispatch]);
 
-  const isLoggedIn = useSelector(selectIsLoggedIn);
-
-  if (!isLoggedIn) {
-    return <Navigate to="/login" />;
-  }
-
   return (
     <main>
+      <Helmet>
+        <title>Contacts</title>
+      </Helmet>
       <h2>Phonebook</h2>
       <ContactForm />
       <h2>Contact</h2>

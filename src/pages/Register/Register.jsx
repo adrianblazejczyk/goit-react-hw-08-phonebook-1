@@ -1,8 +1,7 @@
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import css from './Register.module.css';
 import { register } from '../../redux/auth/operations';
-import { Navigate } from 'react-router-dom';
-import { selectIsLoggedIn } from '../../redux/auth/selectors';
+import { Helmet } from 'react-helmet-async';
 
 const Register = () => {
   const dispatch = useDispatch();
@@ -15,14 +14,11 @@ const Register = () => {
     return dispatch(register({ name, email, password }));
   };
 
-  const isLoggedIn = useSelector(selectIsLoggedIn);
-
-  if (isLoggedIn) {
-    return <Navigate to="/" />;
-  }
-
   return (
     <main>
+      <Helmet>
+        <title>Register</title>
+      </Helmet>
       <form className={css.register} onSubmit={handleRegister}>
         <label className={css.label}>User name:</label>
         <input name="username" />
