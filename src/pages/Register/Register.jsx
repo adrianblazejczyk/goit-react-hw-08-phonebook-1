@@ -1,7 +1,10 @@
 import { useDispatch } from 'react-redux';
-import css from './Register.module.css';
 import { register } from '../../redux/auth/operations';
 import { Helmet } from 'react-helmet-async';
+import { Button, Box, TextField, FormControl } from '@mui/material';
+import EmailIcon from '@mui/icons-material/Email';
+import PersonIcon from '@mui/icons-material/Person';
+import LockIcon from '@mui/icons-material/Lock';
 
 const Register = () => {
   const dispatch = useDispatch();
@@ -19,16 +22,46 @@ const Register = () => {
       <Helmet>
         <title>Register</title>
       </Helmet>
-      <form className={css.register} onSubmit={handleRegister}>
-        <label className={css.label}>User name:</label>
-        <input name="username" />
-        <label className={css.label}>Email:</label>
-        <input type="email" name="email" />
-        <label className={css.label}>Password:</label>
-        <input type="password" name="password" autoComplete="off" />
-        <button className={css.btn} type="submit">
-          Register
-        </button>
+      <form onSubmit={handleRegister}>
+        <FormControl sx={{ display: 'flex', gap: '20px', minWidth: '300px' }}>
+          <Box sx={{ display: 'flex', alignItems: 'flex-end', gap: '15px' }}>
+            <PersonIcon fontSize="large" />
+            <TextField name="username" variant="standard" label="User Name" />
+          </Box>
+          <Box sx={{ display: 'flex', alignItems: 'flex-end', gap: '15px' }}>
+            <EmailIcon fontSize="large" />
+            <TextField
+              type="email"
+              name="email"
+              variant="standard"
+              label="Email"
+            />
+          </Box>
+          <Box sx={{ display: 'flex', alignItems: 'flex-end', gap: '15px' }}>
+            <LockIcon fontSize="large" />
+            <TextField
+              type="password"
+              name="password"
+              variant="standard"
+              label="Password"
+              autoComplete="off"
+            />
+          </Box>
+          <Box
+            sx={{ display: 'flex', justifyContent: 'right', marginTop: '50px' }}
+          >
+            <Button
+              sx={{
+                maxWidth: '100px',
+                float: 'left',
+              }}
+              variant="contained"
+              type="submit"
+            >
+              Register
+            </Button>
+          </Box>
+        </FormControl>
       </form>
     </main>
   );

@@ -1,5 +1,6 @@
 import { useDispatch } from 'react-redux';
 import { logout } from '../../redux/auth/operations';
+import { Button } from '@mui/material';
 
 const LogoutBtn = () => {
   const dispatch = useDispatch();
@@ -7,9 +8,15 @@ const LogoutBtn = () => {
     return dispatch(logout());
   };
   return (
-    <button type="button" onClick={handleLogout}>
+    <Button
+      variant="outlined"
+      size="small"
+      type="button"
+      onClick={handleLogout}
+      color="error"
+    >
       Logout
-    </button>
+    </Button>
   );
 };
 

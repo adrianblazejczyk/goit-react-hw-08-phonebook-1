@@ -1,6 +1,7 @@
 import ElementItem from '../ElementItem/ElementItem';
 import { selectFilteredContacts } from '../../redux/contacts/selectors';
 import { useSelector } from 'react-redux';
+import { List } from '@mui/material';
 
 const ElementsList = () => {
   const filter = useSelector(selectFilteredContacts);
@@ -10,7 +11,7 @@ const ElementsList = () => {
   ));
   return (
     <>
-      <ul>{list}</ul>
+      <List>{list}</List>
     </>
   );
 };

@@ -4,12 +4,12 @@ import { useSelector } from 'react-redux';
 import { selectIsLoggedIn, selectUserName } from '../../redux/auth/selectors';
 import LogoutBtn from '../LogoutBtn/LogoutBtn';
 import styled from 'styled-components';
-import css from './MenuBar.module.css';
+import { AppBar, Box, Container, Toolbar } from '@mui/material';
 
 const StyledLink = styled(NavLink)`
-  color: black;
+  color: white;
   &.active {
-    color: red;
+    color: #d32f2f;
   }
 `;
 
@@ -19,22 +19,63 @@ const MenuBar = () => {
 
   return (
     <>
-      <header className={css.menuBar}>
-        {isLoggedIn ? (
-          <>
-            <StyledLink to="/">Contacts</StyledLink>
-            <div>Welcome {userName}</div>
-            <LogoutBtn />
-          </>
-        ) : (
-          <>
-            <StyledLink to="/login">Login</StyledLink>
-            <StyledLink to="/register">Register</StyledLink>
-          </>
-        )}
-      </header>
+      <AppBar
+        sx={{
+          marginBottom: '20px',
+        }}
+        position="relative"
+        component="nav"
+      >
+        <Container
+          sx={{
+            padding: 0,
+          }}
+        >
+          <Toolbar
+            sx={{
+              display: 'flex',
+              justifyContent: 'flex-end',
+            }}
+          >
+            {isLoggedIn ? (
+              <Box
+                sx={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '10px',
+                  color: 'white',
+                }}
+              >
+                <div>Welcome {userName}</div>
+                <StyledLink to="/">CONTACTS</StyledLink>
+                <LogoutBtn />
+              </Box>
+            ) : (
+              <Box
+                sx={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '10px',
+                  color: 'white',
+                }}
+              >
+                <StyledLink to="/login">LOGIN</StyledLink>
+                <StyledLink to="/register">REGISTER</StyledLink>
+              </Box>
+            )}
+          </Toolbar>
+        </Container>
+      </AppBar>
       <Suspense>
-        <Outlet />
+        <Container
+          sx={{
+            '@media (min-width: 600px)': {
+              padding: '0 48px',
+            },
+          }}
+        >
+          <Outlet />
+        </Container>
       </Suspense>
     </>
   );

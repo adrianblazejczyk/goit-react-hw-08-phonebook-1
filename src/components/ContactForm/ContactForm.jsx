@@ -1,10 +1,41 @@
+import { useState } from 'react';
 import { addContact } from '../../redux/contacts/operations';
 import { useSelector, useDispatch } from 'react-redux';
 import { selectContacts } from '../../redux/contacts/selectors';
+import { Button, TextField, Box, FormControl } from '@mui/material';
+import PersonAddAlt1Icon from '@mui/icons-material/PersonAddAlt1';
+import LocalPhoneIcon from '@mui/icons-material/LocalPhone';
+import PersonIcon from '@mui/icons-material/Person';
 
 const ContactForm = () => {
   const dispatch = useDispatch();
   const contacts = useSelector(selectContacts);
+  const [userError, setUserError] = useState(false);
+  const [numberError, setNumberError] = useState(false);
+
+  const handleUserError = event => {
+    const name = event.target.value;
+    const pattern = new RegExp(
+      '^[a-zA-Zа-яА-Я]+(([a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$'
+    );
+    if (!pattern.test(name)) {
+      setUserError(true);
+    } else {
+      setUserError(false);
+    }
+  };
+
+  const handleNumberError = event => {
+    const number = event.target.value;
+    const pattern = new RegExp(
+      '\\+?\\d{1,4}?[-.\\s]?(\\d{1,3}?)?[-.\\s]?\\d{1,4}[-.\\s]?\\d{1,4}[-.\\s]?\\d{1,9}'
+    );
+    if (!pattern.test(number)) {
+      setNumberError(true);
+    } else {
+      setNumberError(false);
+    }
+  };
 
   const newContact = event => {
     event.preventDefault();
@@ -26,26 +57,51 @@ const ContactForm = () => {
   return (
     <>
       <form onSubmit={newContact}>
-        <p>Name</p>
-        <input
-          type="text"
-          name="name"
-          pattern="^[a-zA-Zа-яА-Я]+(([a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
-          title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
-          required
-        />
-        <br />
-        <p>Number</p>
-        <input
-          type="tel"
-          name="number"
-          pattern="\+?\d{1,4}?[\-.\s]?\(?\d{1,3}?\)?[\-.\s]?\d{1,4}[\-.\s]?\d{1,4}[\-.\s]?\d{1,9}"
-          title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
-          required
-        />
-        <br />
-        <br />
-        <button type="submit">Add contact</button>
+        <FormControl sx={{ display: 'flex', gap: '20px' }}>
+          <Box sx={{ display: 'flex', alignItems: 'flex-end', gap: '15px' }}>
+            <PersonIcon fontSize="large" />
+            <TextField
+              onChange={handleUserError}
+              noValidate
+              autoComplete="off"
+              label="Name"
+              variant="standard"
+              error={userError}
+              type="text"
+              name="name"
+              required
+            />
+          </Box>
+          <Box sx={{ display: 'flex', alignItems: 'flex-end', gap: '15px' }}>
+            <LocalPhoneIcon fontSize="large" />
+            <TextField
+              onChange={handleNumberError}
+              noValidate
+              autoComplete="off"
+              label="Number"
+              variant="standard"
+              type="tel"
+              error={numberError}
+              name="number"
+              required
+            />
+          </Box>
+          <Box
+            sx={{ display: 'flex', justifyContent: 'right', margin: '20px 0' }}
+          >
+            <Button
+              sx={{
+                maxWidth: '165px',
+                float: 'left',
+              }}
+              variant="contained"
+              endIcon={<PersonAddAlt1Icon />}
+              type="submit"
+            >
+              Add contact
+            </Button>
+          </Box>
+        </FormControl>
       </form>
     </>
   );

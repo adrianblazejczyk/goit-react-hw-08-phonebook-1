@@ -15,18 +15,18 @@ const Contacts = lazy(() => import('pages/Contacts/Contacts'));
 
 const App = () => {
   const dispatch = useDispatch();
+  const isRefreshing = useSelector(selectIsRefreshing);
 
   useEffect(() => {
     dispatch(refreshUser());
   }, [dispatch]);
 
-  const isRefreshing = useSelector(selectIsRefreshing);
   if (isRefreshing) {
     return <div>Refreshing...</div>;
   }
 
   return (
-    <>
+    <div sx={{ backgroundColor: '#f9f9f9', height: '100vh', width: '100vw' }}>
       <Suspense fallback={<h3>Loading...</h3>}>
         <Routes>
           <Route path="/" element={<MenuBar />}>
@@ -46,7 +46,7 @@ const App = () => {
           </Route>
         </Routes>
       </Suspense>
-    </>
+    </div>
   );
 };
 
